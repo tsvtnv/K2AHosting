@@ -1,5 +1,6 @@
 import React from 'react';
 import { Server, Twitter, Facebook, Instagram, Disc } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export const Footer: React.FC = () => {
   return (
@@ -30,9 +31,9 @@ export const Footer: React.FC = () => {
           <div>
             <h4 className="text-white font-bold mb-6">Services</h4>
             <ul className="space-y-4 text-gray-500 text-sm">
-              <li><a href="#" className="hover:text-gold-400 transition-colors">Game Hosting</a></li>
-              <li><a href="#" className="hover:text-gold-400 transition-colors">Dedicated Servers</a></li>
-              <li><a href="#" className="hover:text-gold-400 transition-colors">Web Hosting</a></li>
+              <li><Link to="/games" className="hover:text-gold-400 transition-colors">Game Hosting</Link></li>
+              <li><Link to="/dedicated-servers" className="hover:text-gold-400 transition-colors">Dedicated Servers</Link></li>
+              <li><a href="https://tsvweb.co.uk" target="_blank" rel="noopener noreferrer" className="hover:text-gold-400 transition-colors">Web Hosting</a></li>
               <li><a href="#" className="hover:text-gold-400 transition-colors">Domain Names</a></li>
             </ul>
           </div>
@@ -50,10 +51,10 @@ export const Footer: React.FC = () => {
           <div>
             <h4 className="text-white font-bold mb-6">Support</h4>
             <ul className="space-y-4 text-gray-500 text-sm">
-              <li><a href="#" className="hover:text-gold-400 transition-colors">Knowledge Base</a></li>
-              <li><a href="#" className="hover:text-gold-400 transition-colors">System Status</a></li>
-              <li><a href="#" className="hover:text-gold-400 transition-colors">Open Ticket</a></li>
-              <li><a href="#" className="hover:text-gold-400 transition-colors">Discord Community</a></li>
+              <li><Link to="/knowledge-base" className="hover:text-gold-400 transition-colors">Knowledge Base</Link></li>
+              <li><Link to="/status" className="hover:text-gold-400 transition-colors">System Status</Link></li>
+              <li><Link to="/support" className="hover:text-gold-400 transition-colors">Open Ticket</Link></li>
+              <li><a href="https://discord.gg/k2a" target="_blank" rel="noreferrer" className="hover:text-gold-400 transition-colors">Discord Community</a></li>
             </ul>
           </div>
         </div>

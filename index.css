@@ -1,0 +1,11 @@
+/* 
+  @tailwind directives are removed for browser preview compatibility.
+  Styles are now handled by the CDN in index.html for live preview.
+  
+  Production builds will use postcss/tailwind.config.js.
+*/
+
+body {
+  margin: 0;
+  padding: 0;
+}

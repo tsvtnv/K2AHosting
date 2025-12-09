@@ -42,9 +42,10 @@ export const Navbar: React.FC = () => {
 
   const navLinks = [
     { name: 'Games', href: '/games' },
-    { name: 'Features', href: '#features' },
-    { name: 'Pricing', href: '#pricing' },
-    { name: 'Support', href: '#footer' },
+    { name: 'Dedicated', href: '/dedicated-servers' },
+    { name: 'Features', href: '/#features' },
+    { name: 'Pricing', href: '/#pricing' },
+    { name: 'Support', href: '/support' },
   ];
 
   return (

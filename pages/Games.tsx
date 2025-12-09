@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import { CustomServerCTA } from '../components/CustomServerCTA';
@@ -36,6 +37,10 @@ export const Games: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-black text-white font-sans selection:bg-gold-500 selection:text-black flex flex-col">
+      <Helmet>
+        <title>All Games | K2A Hosting</title>
+        <meta name="description" content="Browse our full catalog of supported game servers. FiveM, Minecraft, Rust, Ark, and more. Instant setup and DDoS protection included." />
+      </Helmet>
       <Navbar />
       
       {/* Header */}
