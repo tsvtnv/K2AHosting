@@ -41,8 +41,8 @@ export const Navbar: React.FC = () => {
   };
 
   const navLinks = [
-    { name: 'VPS Hosting', href: '/#vps' },
-    { name: 'Dedicated Servers', href: '/#dedicated' },
+    { name: 'VPS Hosting', href: '/vps-hosting' },
+    { name: 'Dedicated Servers', href: '/dedicated-servers' },
     { name: 'Game Hosting', href: '/game-hosting' },
     { name: 'Support', href: '/support' },
   ];
