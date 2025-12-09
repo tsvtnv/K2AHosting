@@ -8,12 +8,44 @@ export interface Game {
   category?: string;
 }
 
+export interface VPSPlan {
+  id: string;
+  name: string;
+  price: string;
+  specs: {
+    vCores: number;
+    ram: string;
+    storage: string;
+    bandwidth: string;
+    traffic: string;
+    backups: boolean;
+  };
+}
+
 export interface Plan {
   id: string;
   name: string;
   price: string;
   features: string[];
-  recommended?: boolean;
+  recommended: boolean;
+}
+
+export interface DedicatedCategory {
+  id: string;
+  name: string;
+  description: string;
+}
+
+export interface DedicatedServer {
+  id: string;
+  categoryId: string;
+  name: string;
+  cpu: string;
+  cores: string;
+  ram: string;
+  storage: string;
+  bandwidth: string;
+  price: string;
 }
 
 export interface Feature {
@@ -51,4 +83,33 @@ export interface ServerStats {
   cpu_absolute: number;
   disk_bytes: number;
   state: string;
+}
+
+// Configuration Types
+export interface OperatingSystem {
+  id: string;
+  name: string;
+  type: 'linux' | 'windows' | 'game';
+  price: number;
+}
+
+export interface ControlPanel {
+  id: string;
+  name: string;
+  price: number;
+}
+
+export interface Addon {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  selected?: boolean;
+}
+
+// Game Calculator
+export interface GameConfig {
+    gameId: string;
+    players: number;
+    modLevel: 'vanilla' | 'light' | 'heavy';
 }

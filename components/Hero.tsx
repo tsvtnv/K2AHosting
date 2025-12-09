@@ -1,65 +1,60 @@
 import React from 'react';
-import { ArrowRight, ChevronRight } from 'lucide-react';
+import { ArrowRight, Server, ShieldCheck } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 export const Hero: React.FC = () => {
+  const navigate = useNavigate();
+
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
+    <div className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-black border-b border-white/5">
       {/* Background Effects */}
       <div className="absolute inset-0 z-0">
-         {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-royal-900/40 via-black to-black opacity-80" />
-        {/* Grid Pattern */}
-        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-100 contrast-150" />
-        
-        {/* Animated Glow Orbs */}
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-royal-600/20 rounded-full blur-[128px] animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gold-400/10 rounded-full blur-[128px] animate-pulse delay-1000" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-royal-900/20 via-black to-black opacity-80" />
+        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 brightness-100 contrast-150" />
+        {/* Tech Grid */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20">
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-royal-500/30 bg-royal-900/20 backdrop-blur-sm mb-8 animate-fade-in-up">
-          <span className="relative flex h-3 w-3">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-3 w-3 bg-gold-500"></span>
-          </span>
-          <span className="text-sm font-medium text-gold-300 tracking-wide uppercase">Next-Gen Performance</span>
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-royal-500/30 bg-royal-900/10 backdrop-blur-sm mb-8 animate-fade-in-up">
+          <ShieldCheck className="w-4 h-4 text-gold-400" />
+          <span className="text-sm font-bold text-gray-300 tracking-wide uppercase">UK-Based Enterprise Infrastructure</span>
         </div>
 
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-display font-bold text-white leading-tight mb-6 tracking-tight">
-          Premium Game Server <br />
-          Hosting for <span className="gold-gradient-text">Every Game</span>
+        <h1 className="text-5xl md:text-7xl font-display font-bold text-white leading-tight mb-6 tracking-tight drop-shadow-2xl">
+          High-Performance <span className="text-white">UK Hosting</span><br />
+          <span className="gold-gradient-text">VPS & Dedicated Servers</span>
         </h1>
 
-        <p className="mt-4 max-w-2xl mx-auto text-xl text-gray-400 font-light mb-10">
-          GTA, Minecraft, Rust, Ark, RedM and more — <br className="hidden md:block"/>
-          <strong className="text-white">K2A Hosting</strong> powers your world with enterprise-grade hardware.
+        <p className="mt-6 max-w-2xl mx-auto text-xl text-gray-400 font-light mb-12 leading-relaxed">
+          Low latency, powerful hardware, fully backed up, and DDoS-protected.
+          <br className="hidden md:block" />
+          Deploy your workload on K2A Hosting's premium UK network today.
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <button className="group relative px-8 py-4 bg-gold-500 hover:bg-gold-400 text-black font-bold text-lg rounded-xl transition-all duration-200 shadow-[0_0_20px_rgba(255,215,0,0.4)] hover:shadow-[0_0_30px_rgba(255,215,0,0.6)] flex items-center gap-2">
-            Start Hosting
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+        <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+          <button 
+            onClick={() => scrollToSection('vps')}
+            className="w-full sm:w-auto px-8 py-4 bg-gold-500 hover:bg-gold-400 text-black font-bold text-lg rounded-lg transition-all duration-200 shadow-[0_0_20px_rgba(255,215,0,0.3)] hover:shadow-[0_0_30px_rgba(255,215,0,0.5)] flex items-center justify-center gap-2"
+          >
+            View VPS Plans
+            <ArrowRight className="w-5 h-5" />
           </button>
           
-          <button className="px-8 py-4 bg-transparent border border-neutral-700 hover:border-royal-500 text-white font-medium text-lg rounded-xl transition-all duration-200 hover:bg-royal-900/30 backdrop-blur-sm flex items-center gap-2">
-            View Pricing
-            <ChevronRight className="w-5 h-5 text-gray-400" />
+          <button 
+            onClick={() => scrollToSection('dedicated')}
+            className="w-full sm:w-auto px-8 py-4 bg-white/5 border border-white/10 hover:border-royal-500 hover:bg-white/10 text-white font-bold text-lg rounded-lg transition-all duration-200 backdrop-blur-sm flex items-center justify-center gap-2"
+          >
+            <Server className="w-5 h-5 text-royal-400" />
+            View Dedicated Servers
           </button>
-        </div>
-
-        {/* Stats */}
-        <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 border-t border-white/10 pt-8">
-            {[
-                { label: 'Uptime', value: '99.99%' },
-                { label: 'Support', value: '24/7' },
-                { label: 'Locations', value: 'Global' },
-                { label: 'Setup', value: 'Instant' },
-            ].map((stat) => (
-                <div key={stat.label} className="text-center">
-                    <div className="text-2xl md:text-3xl font-display font-bold text-white">{stat.value}</div>
-                    <div className="text-sm text-royal-400 uppercase tracking-widest">{stat.label}</div>
-                </div>
-            ))}
         </div>
       </div>
     </div>

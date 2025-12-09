@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Server } from 'lucide-react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 
 export const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -17,34 +17,33 @@ export const Navbar: React.FC = () => {
   }, []);
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
+    if (href.startsWith('/')) {
+        // Let normal routing handle it
+        return; 
+    }
     
+    e.preventDefault();
     if (href.startsWith('#')) {
-      // Handle Anchor Links
+      const targetId = href.substring(1);
+      
       if (location.pathname !== '/') {
         navigate('/');
         setTimeout(() => {
-          const element = document.querySelector(href);
+          const element = document.getElementById(targetId);
           element?.scrollIntoView({ behavior: 'smooth' });
         }, 100);
       } else {
-        const element = document.querySelector(href);
+        const element = document.getElementById(targetId);
         element?.scrollIntoView({ behavior: 'smooth' });
       }
-    } else {
-      // Handle Route Links
-      navigate(href);
-      window.scrollTo(0, 0);
     }
-    
     setIsMobileMenuOpen(false);
   };
 
   const navLinks = [
-    { name: 'Games', href: '/games' },
-    { name: 'Dedicated', href: '/dedicated-servers' },
-    { name: 'Features', href: '/#features' },
-    { name: 'Pricing', href: '/#pricing' },
+    { name: 'VPS Hosting', href: '/#vps' },
+    { name: 'Dedicated Servers', href: '/#dedicated' },
+    { name: 'Game Hosting', href: '/game-hosting' },
     { name: 'Support', href: '/support' },
   ];
 
@@ -73,18 +72,28 @@ export const Navbar: React.FC = () => {
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-8">
               {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  onClick={(e) => handleNavClick(e, link.href)}
-                  className="font-sans text-sm font-medium text-gray-300 hover:text-gold-400 transition-colors duration-200"
-                >
-                  {link.name}
-                </a>
+                link.href.startsWith('/') && !link.href.startsWith('/#') ? (
+                    <Link
+                        key={link.name}
+                        to={link.href}
+                        className="font-sans text-sm font-medium text-gray-300 hover:text-white transition-colors duration-200"
+                    >
+                        {link.name}
+                    </Link>
+                ) : (
+                    <a
+                    key={link.name}
+                    href={link.href}
+                    onClick={(e) => handleNavClick(e, link.href)}
+                    className="font-sans text-sm font-medium text-gray-300 hover:text-white transition-colors duration-200"
+                    >
+                    {link.name}
+                    </a>
+                )
               ))}
               <button 
                 onClick={() => navigate('/login')}
-                className="bg-royal-600 hover:bg-royal-700 text-white px-6 py-2 rounded-full font-medium transition-all duration-200 border border-royal-500 shadow-[0_0_15px_rgba(120,81,169,0.3)] hover:shadow-[0_0_20px_rgba(255,215,0,0.3)]"
+                className="bg-royal-600 hover:bg-royal-700 text-white px-6 py-2 rounded-lg font-medium transition-all duration-200 border border-royal-500 shadow-lg shadow-royal-900/50 hover:shadow-royal-500/30"
               >
                 Client Area
               </button>
@@ -105,17 +114,28 @@ export const Navbar: React.FC = () => {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-neutral-900 border-b border-white/10">
+        <div className="md:hidden bg-neutral-950 border-b border-white/10">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             {navLinks.map((link) => (
+               link.href.startsWith('/') && !link.href.startsWith('/#') ? (
+                <Link
+                    key={link.name}
+                    to={link.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-neutral-800"
+                >
+                    {link.name}
+                </Link>
+            ) : (
               <a
                 key={link.name}
                 href={link.href}
                 onClick={(e) => handleNavClick(e, link.href)}
-                className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-gold-400 hover:bg-neutral-800"
+                className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-neutral-800"
               >
                 {link.name}
               </a>
+            )
             ))}
             <button
               onClick={() => {
