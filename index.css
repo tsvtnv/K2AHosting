@@ -1,11 +1,46 @@
-/* 
-  @tailwind directives are removed for browser preview compatibility.
-  Styles are now handled by the CDN in index.html for live preview.
-  
-  Production builds will use postcss/tailwind.config.js.
-*/
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 body {
   margin: 0;
   padding: 0;
+  background-color: #050505;
+  color: #ffffff;
+}
+
+.gold-gradient-text {
+  background: linear-gradient(to right, #ffd700, #ffe566, #ffd700);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% auto;
+  animation: shine 4s linear infinite;
+}
+
+@keyframes shine {
+  to {
+    background-position: 200% center;
+  }
+}
+
+.glass-card {
+  background: rgba(20, 20, 20, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 215, 0, 0.1);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0a0a; 
+}
+::-webkit-scrollbar-thumb {
+  background: #3e265c; 
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #7851A9; 
 }

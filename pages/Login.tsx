@@ -1,16 +1,42 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Server, Lock, Mail, ArrowRight, ArrowLeft } from 'lucide-react';
+import { Server, Lock, Mail, ArrowRight, ArrowLeft, Loader2 } from 'lucide-react';
 
 export const Login: React.FC = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate login
-    navigate('/dashboard');
+    setLoading(true);
+    setError('');
+
+    try {
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || 'Login failed');
+      }
+
+      // Store auth data
+      localStorage.setItem('k2a_token', data.token);
+      localStorage.setItem('k2a_user', JSON.stringify(data.user));
+      
+      navigate('/dashboard');
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -36,6 +62,12 @@ export const Login: React.FC = () => {
             <h1 className="text-3xl font-display font-bold text-white mb-2">Welcome Back</h1>
             <p className="text-gray-400">Access your K2A Terminal</p>
           </div>
+
+          {error && (
+            <div className="mb-4 p-3 bg-red-500/10 border border-red-500/50 rounded-lg text-red-400 text-sm text-center">
+              {error}
+            </div>
+          )}
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
@@ -73,10 +105,17 @@ export const Login: React.FC = () => {
 
             <button 
               type="submit"
-              className="w-full bg-royal-600 hover:bg-royal-500 text-white font-bold py-3 rounded-lg transition-all duration-200 shadow-[0_0_20px_rgba(120,81,169,0.3)] hover:shadow-[0_0_30px_rgba(120,81,169,0.5)] flex items-center justify-center gap-2 group"
+              disabled={loading}
+              className="w-full bg-royal-600 hover:bg-royal-500 text-white font-bold py-3 rounded-lg transition-all duration-200 shadow-[0_0_20px_rgba(120,81,169,0.3)] hover:shadow-[0_0_30px_rgba(120,81,169,0.5)] flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Sign In
-              <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+              {loading ? (
+                <Loader2 className="animate-spin" />
+              ) : (
+                <>
+                  Sign In
+                  <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                </>
+              )}
             </button>
           </form>
 

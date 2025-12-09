@@ -1,17 +1,43 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Server, Lock, Mail, User, ArrowRight, ArrowLeft } from 'lucide-react';
+import { Server, Lock, Mail, User, ArrowRight, ArrowLeft, Loader2 } from 'lucide-react';
 
 export const Signup: React.FC = () => {
   const navigate = useNavigate();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate signup
-    navigate('/dashboard');
+    setLoading(true);
+    setError('');
+
+    try {
+      const res = await fetch('/api/auth/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, password }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || 'Signup failed');
+      }
+
+      // Store auth data
+      localStorage.setItem('k2a_token', data.token);
+      localStorage.setItem('k2a_user', JSON.stringify(data.user));
+
+      navigate('/dashboard');
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -33,6 +59,12 @@ export const Signup: React.FC = () => {
             <h1 className="text-3xl font-display font-bold text-white mb-2">Join K2A Hosting</h1>
             <p className="text-gray-400">Deploy your high-performance server today</p>
           </div>
+
+          {error && (
+            <div className="mb-4 p-3 bg-red-500/10 border border-red-500/50 rounded-lg text-red-400 text-sm text-center">
+              {error}
+            </div>
+          )}
 
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
@@ -82,10 +114,17 @@ export const Signup: React.FC = () => {
 
             <button 
               type="submit"
-              className="w-full bg-gold-500 hover:bg-gold-400 text-black font-bold py-3 rounded-lg transition-all duration-200 shadow-[0_0_20px_rgba(255,215,0,0.3)] hover:shadow-[0_0_30px_rgba(255,215,0,0.5)] flex items-center justify-center gap-2 group mt-2"
+              disabled={loading}
+              className="w-full bg-gold-500 hover:bg-gold-400 text-black font-bold py-3 rounded-lg transition-all duration-200 shadow-[0_0_20px_rgba(255,215,0,0.3)] hover:shadow-[0_0_30px_rgba(255,215,0,0.5)] flex items-center justify-center gap-2 group mt-2 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Create Account
-              <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+              {loading ? (
+                <Loader2 className="animate-spin" />
+              ) : (
+                <>
+                  Create Account
+                  <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                </>
+              )}
             </button>
           </form>
 

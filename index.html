@@ -19,21 +19,20 @@
               royal: {
                 400: '#9d7ad2',
                 500: '#8b63c7',
-                600: '#7851A9', // Royal Purple base
+                600: '#7851A9',
                 700: '#643f91',
                 800: '#523478',
                 900: '#3e265c',
               },
               gold: {
                 300: '#ffe566',
-                400: '#ffd700', // Gold Base
+                400: '#ffd700',
                 500: '#e6c200',
                 600: '#cca300',
               }
             },
             animation: {
               'fade-in-up': 'fadeInUp 0.5s ease-out forwards',
-              'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
             },
             keyframes: {
               fadeInUp: {
@@ -48,15 +47,13 @@
     <script type="importmap">
 {
   "imports": {
-    "react": "https://esm.sh/react@18.3.1?dev",
-    "react/jsx-runtime": "https://esm.sh/react@18.3.1/jsx-runtime?dev",
-    "react-dom/client": "https://esm.sh/react-dom@18.3.1/client?dev",
-    "react-dom": "https://esm.sh/react-dom@18.3.1?dev",
-    "react-router-dom": "https://esm.sh/react-router-dom@6.22.3?external=react,react-dom&dev",
-    "react-helmet-async": "https://esm.sh/react-helmet-async@2.0.4?external=react,react-dom&dev",
-    "lucide-react": "https://esm.sh/lucide-react@0.344.0?external=react,react-dom&dev",
-    "clsx": "https://esm.sh/clsx@2.1.0?dev",
-    "tailwind-merge": "https://esm.sh/tailwind-merge@2.2.1?dev",
+    "react": "https://esm.sh/react@18.3.1",
+    "react-dom/client": "https://esm.sh/react-dom@18.3.1/client",
+    "react-dom": "https://esm.sh/react-dom@18.3.1",
+    "react/jsx-runtime": "https://esm.sh/react@18.3.1/jsx-runtime",
+    "react-router-dom": "https://esm.sh/react-router-dom@6.22.3?external=react,react-dom",
+    "react-helmet-async": "https://esm.sh/react-helmet-async@2.0.4?external=react,react-dom",
+    "lucide-react": "https://esm.sh/lucide-react@0.344.0?external=react,react-dom",
     "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.1/",
     "react/": "https://aistudiocdn.com/react@^19.2.1/",
     "vite": "https://aistudiocdn.com/vite@^7.2.7",
@@ -69,49 +66,6 @@
   }
 }
 </script>
-    <style>
-      /* Custom Global Styles that Tailwind CDN might miss */
-      body {
-        background-color: #050505;
-        color: #ffffff;
-      }
-      
-      .gold-gradient-text {
-        background: linear-gradient(to right, #ffd700, #ffe566, #ffd700);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-size: 200% auto;
-        animation: shine 4s linear infinite;
-      }
-
-      @keyframes shine {
-        to {
-          background-position: 200% center;
-        }
-      }
-
-      .glass-card {
-        background: rgba(20, 20, 20, 0.6);
-        backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 215, 0, 0.1);
-      }
-
-      /* Custom Scrollbar */
-      ::-webkit-scrollbar {
-        width: 8px;
-        height: 8px;
-      }
-      ::-webkit-scrollbar-track {
-        background: #0a0a0a; 
-      }
-      ::-webkit-scrollbar-thumb {
-        background: #3e265c; 
-        border-radius: 4px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: #7851A9; 
-      }
-    </style>
   </head>
   <body>
     <div id="root"></div>
