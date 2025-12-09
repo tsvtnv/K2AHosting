@@ -1,6 +1,7 @@
 import React from 'react';
 import { Game } from '../types';
-import { Box, Gamepad2, Layers, Cpu, Globe, Zap, Plus } from 'lucide-react';
+import { Box, Gamepad2, Layers, Cpu, Globe, Zap, Plus, ArrowRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const games: Game[] = [
   {
@@ -36,6 +37,8 @@ const games: Game[] = [
 ];
 
 export const GameGrid: React.FC = () => {
+  const navigate = useNavigate();
+
   return (
     <section id="games" className="py-24 bg-neutral-950 relative">
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-royal-900 to-transparent"></div>
@@ -50,7 +53,7 @@ export const GameGrid: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
           {games.map((game) => (
             <div
               key={game.id}
@@ -82,6 +85,19 @@ export const GameGrid: React.FC = () => {
                 <h3 className="text-xl font-bold text-white mb-2">Custom Server?</h3>
                 <p className="text-gray-400 text-sm">We host anything.</p>
             </div>
+        </div>
+
+        <div className="flex justify-center">
+            <button 
+                onClick={() => {
+                    navigate('/games');
+                    window.scrollTo(0, 0);
+                }}
+                className="flex items-center gap-2 px-8 py-3 bg-neutral-900 border border-white/10 hover:border-royal-500 text-white rounded-full font-medium transition-all hover:bg-royal-900/20"
+            >
+                View Full Catalog
+                <ArrowRight className="w-4 h-4" />
+            </button>
         </div>
       </div>
     </section>

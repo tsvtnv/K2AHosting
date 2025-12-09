@@ -1,25 +1,22 @@
 import React from 'react';
-import { Navbar } from './components/Navbar';
-import { Hero } from './components/Hero';
-import { GameGrid } from './components/GameGrid';
-import { Features } from './components/Features';
-import { Pricing } from './components/Pricing';
-import { HowItWorks } from './components/HowItWorks';
-import { CustomServerCTA } from './components/CustomServerCTA';
-import { Footer } from './components/Footer';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import { Home } from './pages/Home';
+import { Login } from './pages/Login';
+import { Signup } from './pages/Signup';
+import { Dashboard } from './pages/Dashboard';
+import { Games } from './pages/Games';
 
 function App() {
   return (
-    <div className="min-h-screen bg-black text-white font-sans selection:bg-gold-500 selection:text-black">
-      <Navbar />
-      <Hero />
-      <GameGrid />
-      <Features />
-      <Pricing />
-      <HowItWorks />
-      <CustomServerCTA />
-      <Footer />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/games" element={<Games />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
+    </Router>
   );
 }
 

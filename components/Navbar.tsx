@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Server } from 'lucide-react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -13,8 +16,32 @@ export const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    
+    if (href.startsWith('#')) {
+      // Handle Anchor Links
+      if (location.pathname !== '/') {
+        navigate('/');
+        setTimeout(() => {
+          const element = document.querySelector(href);
+          element?.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      } else {
+        const element = document.querySelector(href);
+        element?.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      // Handle Route Links
+      navigate(href);
+      window.scrollTo(0, 0);
+    }
+    
+    setIsMobileMenuOpen(false);
+  };
+
   const navLinks = [
-    { name: 'Games', href: '#games' },
+    { name: 'Games', href: '/games' },
     { name: 'Features', href: '#features' },
     { name: 'Pricing', href: '#pricing' },
     { name: 'Support', href: '#footer' },
@@ -31,7 +58,10 @@ export const Navbar: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <div className="flex-shrink-0 flex items-center gap-2 cursor-pointer">
+          <div 
+            className="flex-shrink-0 flex items-center gap-2 cursor-pointer"
+            onClick={() => navigate('/')}
+          >
             <Server className="h-8 w-8 text-gold-400" />
             <span className="font-display font-bold text-2xl tracking-wider text-white">
               K2A <span className="text-gold-400">HOSTING</span>
@@ -45,12 +75,16 @@ export const Navbar: React.FC = () => {
                 <a
                   key={link.name}
                   href={link.href}
+                  onClick={(e) => handleNavClick(e, link.href)}
                   className="font-sans text-sm font-medium text-gray-300 hover:text-gold-400 transition-colors duration-200"
                 >
                   {link.name}
                 </a>
               ))}
-              <button className="bg-royal-600 hover:bg-royal-700 text-white px-6 py-2 rounded-full font-medium transition-all duration-200 border border-royal-500 shadow-[0_0_15px_rgba(120,81,169,0.3)] hover:shadow-[0_0_20px_rgba(255,215,0,0.3)]">
+              <button 
+                onClick={() => navigate('/login')}
+                className="bg-royal-600 hover:bg-royal-700 text-white px-6 py-2 rounded-full font-medium transition-all duration-200 border border-royal-500 shadow-[0_0_15px_rgba(120,81,169,0.3)] hover:shadow-[0_0_20px_rgba(255,215,0,0.3)]"
+              >
                 Client Area
               </button>
             </div>
@@ -76,19 +110,21 @@ export const Navbar: React.FC = () => {
               <a
                 key={link.name}
                 href={link.href}
+                onClick={(e) => handleNavClick(e, link.href)}
                 className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-gold-400 hover:bg-neutral-800"
-                onClick={() => setIsMobileMenuOpen(false)}
               >
                 {link.name}
               </a>
             ))}
-            <a
-              href="#"
-              className="block px-3 py-2 mt-4 text-center rounded-md text-base font-medium bg-royal-600 text-white hover:bg-royal-700"
-              onClick={() => setIsMobileMenuOpen(false)}
+            <button
+              onClick={() => {
+                navigate('/login');
+                setIsMobileMenuOpen(false);
+              }}
+              className="w-full text-left block px-3 py-2 mt-4 rounded-md text-base font-medium bg-royal-600 text-white hover:bg-royal-700"
             >
               Client Area
-            </a>
+            </button>
           </div>
         </div>
       )}
